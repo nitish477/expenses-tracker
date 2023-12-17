@@ -11,6 +11,9 @@ function Transaction() {
 
   useEffect(()=>{
     const data=JSON.parse(localStorage.getItem('user')||"{}")
+    if(!data.email){
+      window.location.href='/signup'
+    }
     setUserData(data)
   },[])
 

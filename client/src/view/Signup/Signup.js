@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './Signup.css'
 import axios from 'axios'
 import Navbar from '../../component/Navbar/Navbar'
@@ -45,6 +45,13 @@ function Signup() {
         alert(err.message)
     }
    }
+
+   useEffect(()=>{
+    const userData=JSON.parse(localStorage.getItem('user')||"{}")
+    if(userData.email){
+        window.location.href='/'
+    }
+   },[])
 
   return (
     <> 
