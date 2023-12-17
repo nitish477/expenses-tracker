@@ -33,9 +33,13 @@ import Transaction from "../model/Transaction.js"
 }
 
 const getTransitionByUser= async (req,res)=>{
-    const {id} = req.params.id;
+    const {id}= req.params;
+    const {_id} = req.params
    try{
-    const userTransaction= await Transaction.find({User:{id: id}}).populate('User')
+    const userTransaction= await Transaction.find({User:{_id:_id}}).populate('user')
+
+    if(!userTransaction || userTransaction.length<0) return res.status(404).json({success:false,msg:"No User found with the given ID"})
+
     res.status(200).json({
         success: true,
         data:userTransaction,

@@ -4,9 +4,11 @@ import dotenv from 'dotenv'
 import { addTransaction, deleletTransition, getAllTransaction, getTransitionByUser } from './controller/Transaction.js'
 import { Signup, login } from './controller/user.js'
 dotenv.config()
+import path from 'path'
 
 const app=express()
 app.use(express.json())
+const __dirname= path.resolve()
 
 const connectDB= async ()=>{
     try{
@@ -28,11 +30,19 @@ app.get('/health',async (req,res)=>{
 
 app.post('/api/transaction',addTransaction)
 app.get('/api/transactions',getAllTransaction)
-app.get('/api/transactions/user/:id',getTransitionByUser)
+app.get('/api/transactions/user/:_id',getTransitionByUser)
 app.delete('/app/transiction/delete/:id',deleletTransition)
 
 app.post('/api/user/signup',Signup)
 app.post('/api/user/login',login)
+
+if(process.env.NODE_ENV=== "production"){
+    app.use(express.static(path.join(__dirname,'..','client','build')))
+
+    app.get('*', (req,res)=>{
+        res.sendFile(path.join(__dirname,'..','client','build','index.html'))
+    })
+ }
 
 const PORT=process.env.PORT||5000
 app.listen(PORT,()=>{

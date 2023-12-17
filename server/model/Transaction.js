@@ -3,7 +3,7 @@ import { Schema,model } from "mongoose";
 const transactionSchema= new Schema({
     user:{
         type:Schema.Types.ObjectId,
-        rel:"User",
+        ref:"User",
         required:true
     },
     amount:{
