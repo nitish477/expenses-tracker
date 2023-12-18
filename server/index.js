@@ -1,7 +1,7 @@
 import express from 'express'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
-import { addTransaction, deleletTransition, editTransation, getAllTransaction, getTransitionById, getTransitionByUser } from './controller/Transaction.js'
+import { addTransaction, deleletTransition, editTransation, getAllTransaction, getTransitionById, getTransitionByUser } from './controller/transaction.js'
 import { Signup, login } from './controller/user.js'
 dotenv.config()
 import path from 'path'
