@@ -11,6 +11,10 @@
       width: 40%;
       margin: 1.5rem 0;
       border-radius: 5px;
+      overflow: scroll;
+}
+::-webkit-scrollbar{
+    width: 0px;
 }
 .input-box{
     border: 1px solid black ;
@@ -19,11 +23,26 @@
 }
 .input-contanier{
    width: 350px;
-    margin: 3rem auto;
+    margin: 1rem auto;
     padding: 20px 10px;
 }
 .select-type{
     margin: 10px;
     padding: 5px 10px;
     outline: none;
+}
+.heading{
+    font-size: 20px;
+    background: rgb(144, 62, 221);
+    width: fit-content;
+    margin: 1px auto;
+    padding: 5px 20px;
+    border-radius: 10px;
+    position: sticky;
+    top: 0px;
+    color: white;
+}
+.total-container{
+    display: flex;
+    justify-content: space-between;
 }

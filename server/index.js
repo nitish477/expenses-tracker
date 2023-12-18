@@ -1,7 +1,7 @@
 import express from 'express'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
-import { addTransaction, deleletTransition, getAllTransaction, getTransitionByUser } from './controller/Transaction.js'
+import { addTransaction, deleletTransition, editTransation, getAllTransaction, getTransitionById, getTransitionByUser } from './controller/Transaction.js'
 import { Signup, login } from './controller/user.js'
 dotenv.config()
 import path from 'path'
@@ -30,8 +30,10 @@ app.get('/health',async (req,res)=>{
 
 app.post('/api/transaction',addTransaction)
 app.get('/api/transactions',getAllTransaction)
-app.get('/api/transactions/user/:_id',getTransitionByUser)
+app.get('/api/transactions/user/:id',getTransitionByUser)
 app.delete('/app/transiction/delete/:id',deleletTransition)
+app.get('/api/trasaction/:id',getTransitionById)
+app.put('/api/trasaction/update/:id',editTransation)
 
 app.post('/api/user/signup',Signup)
 app.post('/api/user/login',login)

@@ -2,13 +2,18 @@ import React, { useEffect, useState } from 'react'
 import Navbar from './../../component/Navbar/Navbar'
 import './Transaction.css'
 import axios from 'axios'
+import Card from '../../component/Card/Card'
 function Transaction() {
   const [amount, setAmount] = useState()
   const [note, setNote] = useState('')
   const [category, setCategory] = useState('')
   const [type, setType] = useState('')
   const [userdata, setUserData] = useState({})
-  const [transactionData,setTransactiondata]=useState([])
+  const [transactionData, setTransactiondata] = useState([])
+  const [credit, setCredit] = useState(0)
+  const [debit, setDebit] = useState(0)
+  const [isEdit,setIsEdit]=useState(false)
+  const [id,setId]=useState(0)
 
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem('user') || "{}")
@@ -35,6 +40,7 @@ function Transaction() {
       if (responce?.data?.success === true) {
         alert(responce?.data?.message)
         clearInputFields()
+        window.location.reload()
       } else {
         alert(responce?.data?.message)
       }
@@ -43,25 +49,98 @@ function Transaction() {
     }
   }
 
-  const loadTransaction=async()=>{
-    const userId=userdata._id
-    if(!userId){
+  const loadTransaction = async () => {
+    const userId = userdata._id
+    if (!userId) {
       return;
     }
-    console.log(userId)
 
-    try{
-      const response=await axios.get(`/api/transactions/user/${userId}`)
-      console.log(response?.data)
-    }catch(err){
+    try {
+      const response = await axios.get(`/api/transactions/user/${userId}`)
+      setTransactiondata(response?.data?.data)
+
+       let totalCredit=0
+       let totalDebit=0
+       transactionData.forEach((obj)=>{
+          if(obj.type==='debit'){
+            totalDebit+=Number(obj.amount)
+            
+          }
+          else{
+            totalCredit+=Number(obj.amount)
+            
+          }
+
+       })
+       setDebit(totalDebit)
+       setCredit(totalCredit)
+    } catch (err) {
       console.log(err.message);
     }
   }
+  useEffect(() => {
+    loadTransaction();
+  }, [userdata])
 
   useEffect(()=>{
-    loadTransaction();
-  },[userdata])
-  
+   loadTransaction()
+  },[])
+
+  const remove= async(_id)=>{
+     try{
+      const responce =await axios.delete(`/app/transiction/delete/${_id}`)
+      if(responce?.data?.success){
+        alert(responce?.data?.message)
+        loadTransaction()
+      } 
+     }catch(err){
+      console.log(err.message)
+     }
+  }
+
+  const edit =async(_id)=>{
+      try{
+          const responce=await axios.get(`/api/trasaction/${_id}`)
+          if(responce?.data?.success){
+            const tranasactionData=responce?.data?.data
+            setAmount(tranasactionData.amount)
+            setType(tranasactionData.type)
+            setCategory(tranasactionData.category)
+            setNote(tranasactionData.decsription)
+            setId(tranasactionData._id)
+            setIsEdit(true)
+
+          }
+          else{
+            alert(responce?.data?.message)
+          }
+
+      }catch(err){
+        console.log(err.message)
+      }
+  }
+
+  const updateTransaction=async()=>{
+    try{
+      const response=await axios.put(`/api/trasaction/update/${id}`,{
+        amount:amount,
+        type:type,
+        category:category,
+        decsription:note
+      })
+
+      if(response?.data?.success){
+         clearInputFields()
+         setIsEdit(false)
+         alert(response?.data?.message)
+         loadTransaction()
+      }
+    }catch(err){
+      console.log(err.message)
+    }
+  }
+
+
 
   return (
     <>
@@ -70,15 +149,37 @@ function Transaction() {
       <div className='main-transaction-div'>
 
         <div className='sub-transaction-div'>
-          <p style={{ textAlign: 'center' }}>Add Transaction</p>
-           
+          <p  className='heading'>Show Transaction</p>
 
+          <div>
+            <div className='total-container'> <p>Total Credit : ₹ {credit}</p> <p>Total Debit : ₹ {debit}</p></div><hr />
+            
+            {
+              transactionData?.map((obj, index) => {
+                const { amount, category, type, decsription,createdAt,_id } = obj
+                const date = new Date(createdAt).toLocaleDateString();
+                const time = new Date(createdAt).toLocaleTimeString();
+                return <Card
+                key={index}
+                  amount={amount}
+                  category={category}
+                  type={type}
+                  decsription={decsription}
+                  date={date}
+                  type={type}
+                  time={time}
+                  remove={()=>{remove(_id)}}
+                  edit={()=>{edit(_id)}}
+                />
+              })
+            }
+          </div>
 
         </div>
 
 
         <div className='sub-transaction-div'>
-          <p style={{ textAlign: 'center' }}>Add Transaction</p>
+         {!isEdit ? <p className='heading'>Add Transaction</p>: <p className='heading'>Update Transaction</p>}
 
           <input type='text'
             value={amount}
@@ -124,7 +225,7 @@ function Transaction() {
             </select>
 
           </div>
-          <button type='button' onClick={addTransaction}>Add Transaction</button>
+         {!isEdit? <button type='button' onClick={addTransaction}>Add Transaction</button>: <button type='button' onClick={updateTransaction}>Update Transaction</button>}
         </div>
       </div>
     </>
