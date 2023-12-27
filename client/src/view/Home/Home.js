@@ -15,7 +15,7 @@ function Home() {
     <>
       <Navbar />
       <div className="area"  >
-        <div className='sub-area'>
+        <div className='sub-area' data-aos="zoom-out-up">
           <img src={Image1} alt="" className='img-home' />
         </div>
         <div className='sub-area'>
