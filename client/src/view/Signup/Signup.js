@@ -49,7 +49,7 @@ function Signup() {
    useEffect(()=>{
     const userData=JSON.parse(localStorage.getItem('user')||"{}")
     if(userData.email){
-        window.location.href='/'
+        window.location.href='/transation'
     }
    },[])
 

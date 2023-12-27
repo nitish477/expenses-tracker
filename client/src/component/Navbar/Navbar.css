@@ -55,7 +55,7 @@
   }
   
   .hamburger:hover {
-    background-color: #2642af;
+    background-color: #1469e988;
   }
   .logout{
    display: flex;
@@ -72,15 +72,16 @@
       position: absolute;
       top: 60px;
       left: 0;
-      width: 100%;
+      width: fit-content;
+      padding: 10px 20px;
       height: calc(100vh - 60px);
-      background-color: white;
+      background-color: #fff;
       border-top: 1px solid black;
       display: none;
     }
   
     .navigation-menu li {
-      text-align: center;
+      text-align: end;
       margin: 0;
     }
   
@@ -98,6 +99,8 @@
       z-index: 1;
       display: block;
     }
+   
+    
   }
   
   
