@@ -3,7 +3,7 @@ import './Card.css'
 
 function Card({amount,category,type,decsription,date,time,remove,_id,edit}) {
   return (
-    <div className='transaction-card'>
+    <div className='transaction-card' >
         <h2 className={`${type==='debit'? 'red':'green'} amount`}>{amount}</h2>
         <p className='category'>{category}</p>
         <hr/>

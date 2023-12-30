@@ -1,5 +1,5 @@
 .transaction-card{
-    background-color: white;
+    background-color: #ccc;
     width: 350px;
     margin: 5px auto;
     padding: 10px 20px;
@@ -47,13 +47,13 @@
 }
 .remove{
     position: absolute;
-    top: 48px;
+    top: 40px;
     right: 10px;
     cursor: pointer;
 }
 .edit{
     position: absolute;
-    top: 48px;
+    top: 40px;
     right: 38px;
     cursor: pointer;
 }

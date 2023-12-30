@@ -59,21 +59,8 @@ function Transaction() {
       const response = await axios.get(`/api/transactions/user/${userId}`)
       setTransactiondata(response?.data?.data)
 
-       let totalCredit=0
-       let totalDebit=0
-       transactionData.forEach((obj)=>{
-          if(obj.type==='debit'){
-            totalDebit+=Number(obj.amount)
-            
-          }
-          else{
-            totalCredit+=Number(obj.amount)
-            
-          }
 
-       })
-       setDebit(totalDebit)
-       setCredit(totalCredit)
+      
     } catch (err) {
       console.log(err.message);
     }
@@ -145,14 +132,14 @@ function Transaction() {
   return (
     <>
       <Navbar />
-      <p style={{ textAlign: 'center' }}>Welcome To Budget Management And Expence Tracker System</p>
+      <p className='trans-welcome'>Welcome To Budget Management And Expence Tracker System</p>
       <div className='main-transaction-div'>
 
         <div className='sub-transaction-div'>
+       
           <p  className='heading'>Show Transaction</p>
 
           <div>
-            <div className='total-container'> <p>Total Credit : ₹ {credit}</p> <p>Total Debit : ₹ {debit}</p></div><hr />
             
             {
               transactionData?.map((obj, index) => {

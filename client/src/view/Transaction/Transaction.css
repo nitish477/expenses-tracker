@@ -1,13 +1,12 @@
 .main-transaction-div{
-    background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
   width: 100%;
-  height: 85vh;
+  height: 70vh;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
 }
 .sub-transaction-div{
-      height: 79vh;
+      height: 60vh;
       width: 40%;
       margin: 1.5rem 0;
       border-radius: 5px;
@@ -41,8 +40,12 @@
     position: sticky;
     top: 0px;
     color: white;
+    z-index: 1;
 }
-.total-container{
-    display: flex;
-    justify-content: space-between;
+.trans-welcome{
+    text-align: center;
+    margin: 30px 20px;
+    font-size: 30px;
+    color: blueviolet;
+    font-weight: 600;
 }
