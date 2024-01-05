@@ -1,4 +1,4 @@
-.about-welcome{
+.about-welcome {
     font-size: 50px;
     font-weight: 650;
     text-align: center;
@@ -6,42 +6,70 @@
     color: blueviolet;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-.about-div{
+
+.about-div {
     background-color: rgba(228, 216, 245, 0.678);
-    height: 400px;
-    width: 700px;
+    height: auto;
+    max-width: 700px;
     margin: 30px auto;
     border-radius: 15px;
     border: 2px solid blueviolet;
+    padding: 20px;
+    box-sizing: border-box;
 }
-.about-text{
+
+.about-text {
     font-size: 15px;
     text-align: center;
-    padding: 25px 35px;
 }
-.profile{
+
+.profile {
     display: flex;
     flex-wrap: wrap;
-    
+    justify-content: center;
+    align-items: center;
 }
-.profile-img-contanier{
+
+.profile-img-contanier {
     height: 220px;
-    overflow: hidden ;
-   margin-left: 50px;
-   margin-right: 20px;
+    overflow: hidden;
+    margin: 20px 0;
     border-radius: 20px;
 }
-.profile-img{
-    height: 200px;
+
+.profile-img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
     border-radius: 20px;
 }
-.profile-text{
-   width: 350px;
-   height: 180px;
+
+.profile-text {
+    width: 100%;
+    max-width: 350px;
+    height: auto;
     background: rgb(196, 196, 235);
     border-radius: 20px;
     border: 2px solid blue;
     padding: 10px 20px;
     text-align: center;
+    box-sizing: border-box;
+}
+
+@media only screen and (max-width: 768px) {
+    .about-welcome {
+        font-size: 36px;
+    }
+
+    .about-div {
+        max-width: 100%;
+    }
+
+    .profile {
+        flex-direction: column;
+    }
+
+    .profile-img-contanier {
+        margin: 0 auto 20px;
+    }
 }
